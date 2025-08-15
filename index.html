@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <title>Saga.js - Archivist Workflow Tool</title>
     <link rel="stylesheet" href="src/index.css" />
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="app">
-      <header>
-        <h1>Archivist Workflow Tool</h1>
-      </header>
-      <main>
-        <section id="collection-selection">
-          <h2>Step 1: Select Collection</h2>
-          <p>Choose the root folder of the collection you want to process.</p>
-          <button id="select-collection-btn" type="button">Select Collection Folder</button>
-          <p class="path-display"><b>Selected Folder:</b> <code id="selected-folder-path">None</code></p>
-        </section>
-      </main>
+        <header>
+            <h1>Archivist Workflow Tool</h1>
+        </header>
+        <main>
+            <section id="collection-selection">
+                <h2>Step 1: Select Collection</h2>
+                <p>Choose the root folder of the collection you want to process.</p>
+                <button id="select-collection-btn" type="button">Select Collection Folder</button>
+                <p class="path-display"><b>Selected Folder:</b> <code id="selected-folder-path">None</code></p>
+            </section>
+
+            <section id="collection-overview" class="hidden">
+                <h2>Collection Status</h2>
+                <button id="back-to-selection-btn" type="button">Select Another Collection</button>
+                <div id="items-list">
+                </div>
+            </section>
+        </main>
     </div>
     <script type="module" src="/src/renderer.ts"></script>
-  </body>
+</body>
+
 </html>
