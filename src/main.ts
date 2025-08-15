@@ -11,8 +11,6 @@ let pythonProcess: ChildProcess | null = null;
 
 // Function to get the path to the bundled Python executable
 function getPythonExecutablePath(): string {
-  // process.resourcesPath is the path to the 'resources' folder inside the packaged app
-  // In development, it will be in the project root.
   const isDev = !app.isPackaged;
   const rootPath = isDev ? process.cwd() : process.resourcesPath;
   const platform = process.platform;
