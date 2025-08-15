@@ -3,6 +3,8 @@ import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../resources/icon.png?asset';
 import path from 'node:path';
+import { scanCollection } from './directoryScanner';
+
 
 async function handleDirectoryOpen(): Promise<string | null> {
   const { canceled, filePaths } = await dialog.showOpenDialog({
@@ -17,7 +19,9 @@ async function handleDirectoryOpen(): Promise<string | null> {
 
 async function handleScanCollection(_event: IpcMainInvokeEvent, collectionPath: string): Promise<any> {
   console.log(`[Main] Received path to scan: ${collectionPath}`);
-  return { success: true, path: collectionPath };
+  // Call our new scanner function and return its result directly to the UI
+  const state = await scanCollection(collectionPath);
+  return state;
 }
 
 
