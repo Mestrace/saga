@@ -1,31 +1,30 @@
-/**
- * This file will automatically be loaded by vite and run in the "renderer" context.
- * To learn more about the differences between the "main" and the "renderer" context in
- * Electron, visit:
- *
- * https://electronjs.org/docs/tutorial/process-model
- *
- * By default, Node.js integration in this file is disabled. When enabling Node.js integration
- * in a renderer process, please be aware of potential security implications. You can read
- * more about security risks here:
- *
- * https://electronjs.org/docs/tutorial/security
- *
- * To enable Node.js integration in this file, open up `main.ts` and enable the `nodeIntegration`
- * flag:
- *
- * ```
- *  // Create the browser window.
- *  mainWindow = new BrowserWindow({
- *    width: 800,
- *    height: 600,
- *    webPreferences: {
- *      nodeIntegration: true
- *    }
- *  });
- * ```
- */
-
 import './index.css';
 
-console.log('👋 This message is being logged by "renderer.ts", included via Vite');
+// Define the shape of our custom API for TypeScript
+interface ICustomAPI {
+  selectFolder: () => Promise<string | null>;
+}
+
+// Tell TypeScript that the 'window' object will have our 'api' property
+declare global {
+  interface Window {
+    api: ICustomAPI;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const selectCollectionBtn = document.getElementById('select-collection-btn');
+  const selectedFolderPath = document.getElementById('selected-folder-path');
+
+  if (selectCollectionBtn && selectedFolderPath) {
+    selectCollectionBtn.addEventListener('click', async () => {
+      const folderPath = await window.api.selectFolder();
+      
+      if (folderPath) {
+        selectedFolderPath.innerText = folderPath;
+      } else {
+        console.log('User canceled folder selection.');
+      }
+    });
+  }
+});

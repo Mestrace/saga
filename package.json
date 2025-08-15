@@ -37,6 +37,8 @@
     "vite": "^5.4.19"
   },
   "dependencies": {
+    "@electron-toolkit/preload": "^3.0.2",
+    "@electron-toolkit/utils": "^4.0.0",
     "electron-squirrel-startup": "^1.0.1",
     "python-shell": "^5.0.0"
   }
