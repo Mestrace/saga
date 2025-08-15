@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron';
+import { app, shell, BrowserWindow, ipcMain, dialog, IpcMainInvokeEvent } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../resources/icon.png?asset';
@@ -13,6 +13,13 @@ async function handleDirectoryOpen(): Promise<string | null> {
   }
   return null;
 }
+
+
+async function handleScanCollection(_event: IpcMainInvokeEvent, collectionPath: string): Promise<any> {
+  console.log(`[Main] Received path to scan: ${collectionPath}`);
+  return { success: true, path: collectionPath };
+}
+
 
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
@@ -55,6 +62,7 @@ app.whenReady().then(() => {
   });
 
   ipcMain.handle('dialog:openDirectory', handleDirectoryOpen);
+  ipcMain.handle('scan-collection', handleScanCollection);
 
   createWindow();
 

@@ -11,5 +11,9 @@
     "outDir": "dist",
     "moduleResolution": "node",
     "resolveJsonModule": true
-  }
+  },
+  "include": [
+    "src/**/*",
+    "src/declarations.d.ts"
+  ]
 }

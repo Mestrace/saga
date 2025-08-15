@@ -2,7 +2,8 @@ import { contextBridge, ipcRenderer } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
 
 const api = {
-  selectFolder: (): Promise<string | null> => ipcRenderer.invoke('dialog:openDirectory')
+  selectFolder: (): Promise<string | null> => ipcRenderer.invoke('dialog:openDirectory'),
+  scanCollection: (collectionPath: string): Promise<any> => ipcRenderer.invoke('scan-collection', collectionPath)
 };
 
 if (process.contextIsolated) {

@@ -1,16 +1,5 @@
 import './index.css';
 
-// Define the shape of our custom API for TypeScript
-interface ICustomAPI {
-  selectFolder: () => Promise<string | null>;
-}
-
-// Tell TypeScript that the 'window' object will have our 'api' property
-declare global {
-  interface Window {
-    api: ICustomAPI;
-  }
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   const selectCollectionBtn = document.getElementById('select-collection-btn');
@@ -22,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
       
       if (folderPath) {
         selectedFolderPath.innerText = folderPath;
+        console.log('[Renderer] Sending path to main process for scanning...');
+        const scanResult = await window.api.scanCollection(folderPath);
+        console.log('[Renderer] Received scan result:', scanResult);
+
       } else {
         console.log('User canceled folder selection.');
       }
